@@ -1,14 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
+import "./index.scss";
 import App from "./App";
-import * as serviceWorker from "./serviceWorker";
+import * as serviceWorker from './serviceWorker';
+import {
+  BrowserRouter
+} from 'react-router-dom';
 import {
   ApolloClient,
   HttpLink,
   InMemoryCache,
   ApolloProvider,
-} from "@apollo/client";
+} from '@apollo/client';
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -19,9 +22,11 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
-      <App />
-    </ApolloProvider>
+    <BrowserRouter>
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );

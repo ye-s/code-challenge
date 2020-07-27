@@ -1,9 +1,12 @@
-import React from "react";
-import "./App.css";
-import { gql, useQuery } from "@apollo/client";
+import React from 'react';
+import './App.scss';
+import { gql, useQuery } from '@apollo/client';
+import { Switch, Route } from 'react-router-dom';
+import OverviewMarketPage from './pages/OverviewMarketPage';
+import CoinDetailsPage from './pages/CoinDetailsPage';
 const GET_MARKET = gql`
   query PageAssets {
-    assets(sort: [{ marketCapRank: ASC }], page: { limit: 25 }) {
+    assets(sort: [{ marketCapRank: DESC }], page: { limit: 25 }) {
       id
       assetName
       assetSymbol
@@ -23,9 +26,22 @@ const GET_MARKET = gql`
   }
 `;
 
-function App() {
-  const { loading, error, data } = useQuery(GET_MARKET);
-  return loading ? <p>Loading...</p> : <div>{JSON.stringify(data)}</div>;
+const App = () => {
+  return (
+    <div className='market-app'>
+      <Switch>
+        <Route exact path="/">
+          <OverviewMarketPage />
+        </Route>
+        <Route exact path="/details/:coin">
+          <CoinDetailsPage />
+        </Route>
+        <Route>
+          <div><h1>NOT FOUND 404</h1></div>
+        </Route>
+      </Switch>
+    </div>
+  );
 }
 
 export default App;

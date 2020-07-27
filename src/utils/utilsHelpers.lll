@@ -1,0 +1,4 @@
+export function formatNumberToMoney (numberToformat: number) {
+  // TODO add calculation
+  return;
+}
